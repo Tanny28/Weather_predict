@@ -1,18 +1,21 @@
 # Streamlit and frontend dependencies
-streamlit   # Replace with the Streamlit version you’re using
-pillow                          # For handling image uploads
+streamlit                   # Ensure to specify the exact version you are using
+pillow                      # For handling image uploads
 
 # Backend dependencies
-tensorflow           # Check compatibility with your Python version; adjust if necessary
-numpy                           # For numerical operations
-pandas                          # For data manipulation
-scikit-learn                    # For Linear Regression models
-matplotlib                      # For plotting graphs
-seaborn                         # For enhanced data visualization
+tensorflow                  # Check compatibility with your Python version
+numpy                       # For numerical operations
+pandas                      # For data manipulation
+scikit-learn                # For machine learning models
+matplotlib                  # For plotting graphs
+seaborn                     # For enhanced data visualization
+
+# Deep learning models and image processing
+tensorflow                  # TensorFlow for both image classification and LSTM
+Pillow                      # For handling images in Streamlit
+streamlit                   
 
 # Supporting dependencies
-setuptools>=58.0.4              # Ensures 'distutils' is included
-ipython                         # For display and widgets in Jupyter (if used)
-ipywidgets                      # If you use widgets in Jupyter
-
-
+setuptools>=58.0.4          # Ensures 'distutils' is included
+ipython                     # For Jupyter (if used)
+ipywidgets                  # If using widgets in Jupyter

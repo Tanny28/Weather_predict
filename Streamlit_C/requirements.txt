@@ -1,5 +1,18 @@
-streamlit
-Pillow==9.2.0
-numpy==1.23.5
-tensorflow==2.12.0  
-setuptools
+# Streamlit and frontend dependencies
+streamlit==1.25.0               # Replace with the Streamlit version you’re using
+pillow                          # For handling image uploads
+
+# Backend dependencies
+tensorflow==2.14.0              # Check compatibility with your Python version; adjust if necessary
+numpy                           # For numerical operations
+pandas                          # For data manipulation
+scikit-learn                    # For Linear Regression models
+matplotlib                      # For plotting graphs
+seaborn                         # For enhanced data visualization
+
+# Supporting dependencies
+setuptools>=58.0.4              # Ensures 'distutils' is included
+ipython                         # For display and widgets in Jupyter (if used)
+ipywidgets                      # If you use widgets in Jupyter
+
+

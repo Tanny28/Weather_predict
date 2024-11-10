@@ -9,6 +9,8 @@ pandas                      # For data manipulation
 scikit-learn                # For machine learning models
 matplotlib                  # For plotting graphs
 seaborn                     # For enhanced data visualization
+pygal
+
 
 # Deep learning models and image processing
 tensorflow                  # TensorFlow for both image classification and LSTM

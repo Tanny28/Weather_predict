@@ -234,8 +234,8 @@ if uploaded_file is not None:
     os.remove(temp_image_path)
 
 # Chatbot Section
-st.subheader("💬 Chat with our Weather Bot")
-st.markdown("<div class='card'>Ask the weather bot about weather conditions, predictions, or any queries related to climate.</div>", unsafe_allow_html=True)
+st.subheader("💬 Chat with our Bot By Vultr")
+st.markdown("<div class='card'>Ask anything .</div>", unsafe_allow_html=True)
 
 user_message = st.text_input("Your message to the bot")
 

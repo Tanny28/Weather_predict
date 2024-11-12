@@ -1,9 +1,8 @@
-
 import streamlit as st
 from PIL import Image
 import os
-import Backend  
-import DL  
+import Backend  # Importing functions from Backend.py
+import DL  # Importing functions from DL.py
 import numpy as np
 import pandas as pd
 import random
@@ -13,8 +12,40 @@ from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, LSTM
 from tensorflow.keras.preprocessing.image import img_to_array, load_img
 from tensorflow.keras.preprocessing.sequence import TimeseriesGenerator
 import matplotlib.pyplot as plt
+import requests  # For the chatbot integration
 
 
+LARAVEL_CHATBOT_API_URL = 'https://api.vultrinference.com/v1/chat/completions'
+
+API_KEY = '4BR3W4SABFO4SMJWNVWSOCPV3LOVIVZ7DZAQ' 
+
+def send_message_to_chatbot(message):
+    headers = {
+        'Authorization': f'Bearer {API_KEY}',  # Assuming the API uses Bearer token authentication
+        'Content-Type': 'application/json'
+    }
+    payload = {
+        "model": "llama2-13b-chat-Q5_K_M",  # Model specified as per the PHP example
+        "messages": [
+            {
+                "role": "user",
+                "content": message
+            }
+        ],
+        "max_tokens": 150,
+        "temperature": 0.7
+    }
+    
+    try:
+        response = requests.post(LARAVEL_CHATBOT_API_URL, json=payload, headers=headers)
+        if response.status_code == 200:
+            return response.json().get('choices')[0].get('message', {}).get('content', 'Error: No response from chatbot')
+        else:
+            return f"Error: {response.status_code} - {response.json().get('message', response.text)}"
+    except requests.exceptions.RequestException as e:
+        return f"Exception: {str(e)}"
+
+# Setting up custom CSS for styling
 st.markdown("""
     <style>
     .main {
@@ -53,7 +84,7 @@ st.components.v1.html("""
 </div>
 """, height=500)
 
-
+# Step 1: Define weather categories and classification model
 weather_categories = ["humid", "sunny", "foggy", "rainy"]
 num_classes = len(weather_categories)
 
@@ -72,7 +103,7 @@ def build_classification_model():
 
 classification_model = build_classification_model()
 
-
+# Step 2: Generate weather data and LSTM model
 def generate_weather_data(num_days):
     base_temp = random.randint(10, 30)
     temps = base_temp + 5 * np.sin(np.linspace(0, 3 * np.pi, num_days)) + np.random.normal(0, 2, num_days)
@@ -113,7 +144,7 @@ def predict_lstm(model, data, look_back=30, days=30):
     
     return np.array(predictions).flatten()
 
-
+# Step 3: Classify and predict function
 def classify_and_predict(image_path):
     img = load_img(image_path, target_size=(128, 128))
     img_array = img_to_array(img) / 255.0
@@ -151,7 +182,7 @@ def classify_and_predict(image_path):
         st.pyplot(plt)
         plt.close()
 
-
+# City-based prediction function
 def city_based_prediction(city, timeline):
     try:
         prediction = Backend.get_prediction(city, timeline)
@@ -159,10 +190,11 @@ def city_based_prediction(city, timeline):
     except ValueError as e:
         return str(e)
 
+# Streamlit App Layout
 st.title("🌦️ Weather Prediction App")
 st.markdown("<h3 style='text-align: center;'>Get Detailed Weather Forecasts by City or through Image Analysis</h3>", unsafe_allow_html=True)
 
-
+# City-based Prediction Section
 st.subheader("🌆 City-based Weather Prediction")
 st.markdown("<div class='card'>Enter city name and select timeline for weather forecast</div>", unsafe_allow_html=True)
 
@@ -187,6 +219,7 @@ if st.button("Predict by City"):
     else:
         st.error("Please enter a city name.")
 
+# Image-based Prediction Section
 st.subheader("📷 Image-based Weather Prediction")
 st.markdown("<div class='card'>Upload an image to predict weather conditions through AI analysis</div>", unsafe_allow_html=True)
 uploaded_file = st.file_uploader("Upload an Image of the Climate", type=["jpg", "jpeg", "png"])
@@ -199,3 +232,16 @@ if uploaded_file is not None:
     classify_and_predict(temp_image_path)
     
     os.remove(temp_image_path)
+
+# Chatbot Section
+st.subheader("💬 Chat with our Weather Bot")
+st.markdown("<div class='card'>Ask the weather bot about weather conditions, predictions, or any queries related to climate.</div>", unsafe_allow_html=True)
+
+user_message = st.text_input("Your message to the bot")
+
+if st.button("Send Message"):
+    if user_message:
+        bot_response = send_message_to_chatbot(user_message)
+        st.markdown(f"**Bot Response:** {bot_response}")
+    else:
+        st.error("Please enter a message to chat with the bot.")

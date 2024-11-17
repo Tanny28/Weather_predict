@@ -45,31 +45,32 @@ Vultr API	Serverless inference integration
 Prerequisites
 Ensure you have the following installed:
 
-Python 3.x
-Streamlit
-Laravel PHP Framework
+Python 3.x .
+Streamlit .
+Laravel PHP Framework .
 
-Steps to Run Locally
+## Steps to Run Locally
 Clone the repository:
-git clone https://github.com/Tanny28/Weather_predict.git
-cd Streamlit_C
+git clone https://github.com/Tanny28/Weather_predict.git . 
+cd Streamlit_C . 
 
 Install Python dependencies:
 
-pip install -r requirements.txt
+pip install -r requirements.txt . 
 
 Run the Streamlit application:
 streamlit run web_app.py (from Streamlit_C)
 
-📌 Project Notes
+## 📌 Project Notes
 The main running file is Streamli_C (web_app.py).
 Laravel files are specific to the chatbot and can be extended for future improvements.
-🛠️ Future Plans
+
+## 🛠️ Future Plans
 🚀 Fully migrate the project to Laravel for a unified framework.
 🤖 Enhance chatbot capabilities and interactions.
 🌐 Expand predictive models for global insights.
 
-🙌 Acknowledgments
+## 🙌 Acknowledgments
 We extend our gratitude to Vultr for their powerful cloud services and the Vultr Hackathon team for providing this opportunity.
 
 

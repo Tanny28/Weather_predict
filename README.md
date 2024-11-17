@@ -23,7 +23,7 @@ Here’s a quick overview of the files and their roles:
 ├── Laravel_Chatbot/      # Contains the Laravel PHP files for the chatbot
 ├── requirements.txt      # Python dependencies for Streamlit app
 └── Other_Files/          # Supporting files (datasets, utility scripts, etc.)
-
+```
 ### Features Used:
 1. **Badges**: Used for highlighting links like the live demo.
 2. **Table**: For clearly listing the technologies used.
